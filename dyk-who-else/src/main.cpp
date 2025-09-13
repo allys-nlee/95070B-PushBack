@@ -40,13 +40,13 @@ bool inauton = false;
 void describe(int n) {
  Controller1.Screen.setCursor(4, 1);
  if (n == 1) {
-   Controller1.Screen.print("Right");
+   Controller1.Screen.print("Right4Long");
  } else if (n == 2) {
-   Controller1.Screen.print("Left");
+   Controller1.Screen.print("Left4Long");
  } else if (n == 3) {
-   Controller1.Screen.print("urmom");
+   Controller1.Screen.print("Left4Middle");
  } else if (n == 4) {
-   Controller1.Screen.print("urdad");
+   Controller1.Screen.print("skills");
  }
 }
 
