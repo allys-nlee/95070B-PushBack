@@ -520,7 +520,7 @@ void auton1(){
     slowturnPID(-30);
     intakeStop();
     turnPID(-45);
-    slowdrivePID(inchestodegrees(-38));
+    slowdrivePID(inchestodegrees(-43));
     slowturnPID(-123);
     slowdrivePID(inchestodegrees(-26));
     wait(10, msec);
@@ -539,13 +539,13 @@ void auton2(){
     slowturnPID(30);
     intakeStop();
     turnPID(45);
-    slowdrivePID(inchestodegrees(-38));
-    slowturnPID(123);
+    slowdrivePID(inchestodegrees(-40));
+    slowturnPID(120);
     slowdrivePID(inchestodegrees(-26));
     wait(10, msec);
     drivePID(inchestodegrees(1.5));
     longGoal();
-    wait(4000, msec);
+    wait(5000, msec);
     intakeStop();
     mlm.set(true);
 }
@@ -558,35 +558,17 @@ void auton3(){
     slowturnPID(30);
     drivePID(inchestodegrees(9));
     intakeStop;
-    turnPID(-135);
+    turnPID(-142);
     wait(20, msec);
-    drivePID(inchestodegrees(-9));
+    drivePID(inchestodegrees(-9.5));
     wait(20, msec);
     centertopUse();
-    wait(1000, msec);
+    wait(2000, msec);
     intakeStop();
-    wait(10, msec);
-    centertopUse();
-    wait(900, msec);
-    intakeStop();
-    slowestdrivePID(inchestodegrees(63));
-    slowturnPID(-46);
+    slowestdrivePID(inchestodegrees(60));
+    slowturnPID(-48);
     slowdrivePID(inchestodegrees(-32));
     mlm.set(true);
-    wait(500, msec);
-    drivePID(inchestodegrees(30));
-    slowdrivePID(inchestodegrees(2));
-    intakeUse();
-    drivePID(inchestodegrees(3));
-    wait(10, msec);
-    drivePID(inchestodegrees(-3));  
-    wait(1500, msec);
-    slowdrivePID( inchestodegrees(3));
-    drivePID(inchestodegrees(-2));
-    wait(900, msec);
-    intakeStop();
-    drivePID(inchestodegrees(-39));
-    longGoal();
 }
 void auton4(){
     skillsdrivePID(inchestodegrees(32));
@@ -609,7 +591,6 @@ void auton4(){
     longGoal();
     wait(3600, msec);
     intakeUse();
-    slowturnPID(-5);
     slowdrivePID(inchestodegrees(21));
     slowdrivePID(inchestodegrees(20));
     wait(20, msec);
@@ -648,4 +629,22 @@ void auton4(){
     mlm.set(false);
     intakeUse();
     drivePID(inchestodegrees(-4));
+}
+void auton5(){
+    slowdrivePID(inchestodegrees(32));
+    wait(30, msec);
+    slowturnPID(21);
+    intakeUse();
+    slowestdrivePID(inchestodegrees(22));
+    slowturnPID(-30);
+    drivePID(inchestodegrees(9));
+    intakeStop;
+    turnPID(-38);
+    wait(20, msec);
+    drivePID(inchestodegrees(22));
+    wait(20, msec);
+    outtakeUse();
+    wait(2000, msec);
+    intakeStop();
+    drivePID(inchestodegrees(-60));
 }

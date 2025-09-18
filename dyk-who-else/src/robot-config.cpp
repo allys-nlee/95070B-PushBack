@@ -19,6 +19,7 @@ motor outake = motor(PORT9, ratio18_1, false);
 motor storage = motor(PORT7, ratio6_1, false);
 
 pneumatics mlm = pneumatics(Brain.ThreeWirePort.A);
+pneumatics bears = pneumatics(Brain.ThreeWirePort.C);
 
 inertial Inertial = inertial(PORT10);
 //color ColorSensor = color(PORT5);

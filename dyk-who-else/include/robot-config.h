@@ -17,6 +17,7 @@ extern motor outake;
 extern motor storage;
 
 extern pneumatics mlm;
+extern pneumatics bears;
 
 extern inertial Inertial;
 /**

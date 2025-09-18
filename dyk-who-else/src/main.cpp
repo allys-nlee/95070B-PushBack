@@ -47,11 +47,13 @@ void describe(int n) {
    Controller1.Screen.print("Left4Middle");
  } else if (n == 4) {
    Controller1.Screen.print("skills");
+ } else if (n == 5) {
+   Controller1.Screen.print("awp?");
  }
 }
 
 
-int autons = 4;
+int autons = 5;
 int displayauton = 0;
 
 
@@ -97,7 +99,7 @@ void selectorout() {
 
 
 steady_clock::time_point lastmlm;
-steady_clock::time_point lastaa;
+steady_clock::time_point lastbears;
 
 
 
@@ -172,8 +174,9 @@ void autonomous(void) {
  if (displayauton == 4) {
    auton4();
  }
-
-
+ if (displayauton == 5) {
+   auton5();
+ }
  inauton = false;
 }
 
@@ -227,7 +230,37 @@ void usingmlm() {
 
 
 
-bool aatrue;
+bool bearstrue;
+
+//bears
+void bearsAway(){
+  bears.set(false);
+}
+
+//bears
+void bearsUse() {
+  bears.set(true);
+}
+
+//use bears
+void bearsControl() {
+ if (bearstrue) {
+  bears.set(true);
+ } else {
+  bears.set(false);
+ }
+}
+
+//mlm using one button
+void usingmlm() {
+  auto now = steady_clock::now();
+  auto durLastmlm = duration_cast<milliseconds>(now-lastmlm).count();
+  if (durLastmlm > 200) {
+    mlmControl();
+    mlmtrue = !mlmtrue;
+    lastmlm = now;
+ }
+}
 
 void usercontrol(void) {
  while (true) {
