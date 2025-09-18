@@ -70,7 +70,7 @@ void selectorout() {
    if (Controller1.ButtonA.pressing()) {
      wait(1000, msec);
      if (Controller1.ButtonA.pressing()) { //press A to select auton
-       Controller1.rumble(".-.-.");
+       Controller1.rumble("...-");
        break;
      }
    }
@@ -234,12 +234,12 @@ bool bearstrue;
 
 //bears
 void bearsAway(){
-  bears.set(false);
+  bears.set(true);
 }
 
 //bears
 void bearsUse() {
-  bears.set(true);
+  bears.set(false);
 }
 
 //use bears
@@ -251,14 +251,14 @@ void bearsControl() {
  }
 }
 
-//mlm using one button
-void usingmlm() {
+//bears using one button
+void usingbears() {
   auto now = steady_clock::now();
-  auto durLastmlm = duration_cast<milliseconds>(now-lastmlm).count();
-  if (durLastmlm > 200) {
-    mlmControl();
-    mlmtrue = !mlmtrue;
-    lastmlm = now;
+  auto durlastbears = duration_cast<milliseconds>(now-lastbears).count();
+  if (durlastbears > 200) {
+    bearsControl();
+    bearstrue = !bearstrue;
+    lastbears = now;
  }
 }
 
@@ -323,6 +323,9 @@ void usercontrol(void) {
    }
    else if(Controller1.ButtonX.pressing()) {
     usingmlm();
+   }
+   else if(Controller1.ButtonA.pressing()) {
+    usingbears();
    }
    else {
      intake.stop();
