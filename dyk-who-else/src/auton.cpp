@@ -93,11 +93,7 @@ while (fabs(error) > 30) {
 }
 
 
-
-
-
-
-void slowdrivePID(double targetdegrees, double drivekp = 0.82, double driveki = 0, double drivekd = 1.5) {
+void slowdrivePID(double targetdegrees, double drivekp = 1.5, double driveki = 0, double drivekd = 0.8) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -164,8 +160,8 @@ while (fabs(error) > 30) {
         krotdif = rotdif * 4;
 
         // Apply correction
-        double lfinal = (lspeed - krotdif) * 0.5;
-        double rfinal = (rspeed + krotdif) * 0.5;
+        double lfinal = (lspeed - krotdif) * 0.2;
+        double rfinal = (rspeed + krotdif) * 0.2;
 
         // Set motor directions based on target sign
         directionType dir = (targetdegrees >= 0) ? vex::forward : vex::reverse;
@@ -181,10 +177,6 @@ while (fabs(error) > 30) {
         wait(20, msec);
     }
 }
-
-
-
-
 
 
 void slowturnPID(double turndegrees, double turnkp = 2.8, double turnki = 0, double turnkd = 0.005) {
@@ -232,11 +224,6 @@ void slowturnPID(double turndegrees, double turnkp = 2.8, double turnki = 0, dou
     MR.stop(brake);
     BR.stop(brake);
 }
-
-
-
-
-
 
 
 void skillsdrivePID(double targetdegrees, double drivekp = 0.82, double driveki = 0, double drivekd = 1.5) {
@@ -325,7 +312,7 @@ while (fabs(error) > 30) {
 }
 
 
-void slowestdrivePID(double targetdegrees, double drivekp = 0.82, double driveki = 0, double drivekd = 1.5) {
+void slowestdrivePID(double targetdegrees, double drivekp = 2.35, double driveki = 0, double drivekd = 0.49) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -392,8 +379,8 @@ while (fabs(error) > 30) {
         krotdif = rotdif * 4;
 
         // Apply correction
-        double lfinal = (lspeed - krotdif) * 0.3;
-        double rfinal = (rspeed + krotdif) * 0.3;
+        double lfinal = (lspeed - krotdif) * 0.1;
+        double rfinal = (rspeed + krotdif) * 0.1;
 
         // Set motor directions based on target sign
         directionType dir = (targetdegrees >= 0) ? vex::forward : vex::reverse;
@@ -409,11 +396,6 @@ while (fabs(error) > 30) {
         wait(20, msec);
     }
 }
-
-
-
-
-
 
 
 void turnPID(double turndegrees, double turnkp = 2.15, double turnki = 0, double turnkd = 0.05) {
@@ -514,40 +496,46 @@ void hardstop() {
 void auton1(){
     slowdrivePID(inchestodegrees(32));
     wait(30, msec);
-    slowturnPID(21);
+    slowturnPID(23);
     intakeUse();
     slowestdrivePID(inchestodegrees(22));
-    slowturnPID(-30);
+    slowturnPID(-78);
     intakeStop();
-    turnPID(-45);
-    slowdrivePID(inchestodegrees(-43));
-    slowturnPID(-123);
-    slowdrivePID(inchestodegrees(-26));
-    wait(10, msec);
-    drivePID(inchestodegrees(1.5));
+    slowdrivePID(inchestodegrees(-42));
+    slowturnPID(-120);
+    slowdrivePID(inchestodegrees(-25));
     longGoal();
-    wait(4000, msec);
-    intakeStop();
+    wait(2000, msec);
     mlm.set(true);
+    intakeUse();
+    slowdrivePID(inchestodegrees(37));
+    slowdrivePID(inchestodegrees(9));
+    wait(300, msec);
+    slowdrivePID(inchestodegrees(-30));
+    drivePID(inchestodegrees(-20));
+    longGoal();
 }
 void auton2(){
     slowdrivePID(inchestodegrees(32));
     wait(30, msec);
-    slowturnPID(-21);
+    slowturnPID(-23);
     intakeUse();
     slowestdrivePID(inchestodegrees(22));
-    slowturnPID(30);
+    slowturnPID(78);
     intakeStop();
-    turnPID(45);
-    slowdrivePID(inchestodegrees(-40));
+    slowdrivePID(inchestodegrees(-42));
     slowturnPID(120);
-    slowdrivePID(inchestodegrees(-26));
-    wait(10, msec);
-    drivePID(inchestodegrees(1.5));
+    slowdrivePID(inchestodegrees(-25));
     longGoal();
-    wait(5000, msec);
-    intakeStop();
+    wait(2000, msec);
     mlm.set(true);
+    intakeUse();
+    slowdrivePID(inchestodegrees(37));
+    slowdrivePID(inchestodegrees(9));
+    wait(300, msec);
+    slowdrivePID(inchestodegrees(-30));
+    drivePID(inchestodegrees(-20));
+    longGoal();
 }
 void auton3(){
     slowdrivePID(inchestodegrees(32));

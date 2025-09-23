@@ -40,9 +40,9 @@ bool inauton = false;
 void describe(int n) {
  Controller1.Screen.setCursor(4, 1);
  if (n == 1) {
-   Controller1.Screen.print("Right4Long");
+   Controller1.Screen.print("Right7Long");
  } else if (n == 2) {
-   Controller1.Screen.print("Left4Long");
+   Controller1.Screen.print("Left7Long");
  } else if (n == 3) {
    Controller1.Screen.print("Left4Middle");
  } else if (n == 4) {
@@ -67,9 +67,9 @@ void selectorout() {
      displayauton--;
      wait(100, msec);
    }
-   if (Controller1.ButtonA.pressing()) {
+   if (Controller1.ButtonY.pressing()) {
      wait(1000, msec);
-     if (Controller1.ButtonA.pressing()) { //press A to select auton
+     if (Controller1.ButtonY.pressing()) { //press A to select auton
        Controller1.rumble("...-");
        break;
      }
