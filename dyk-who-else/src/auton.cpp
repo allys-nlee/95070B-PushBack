@@ -7,7 +7,7 @@ using namespace vex;
 using namespace std;
 
 // Drivetrain PID
-void drivePID(double targetdegrees, double drivekp = 0.82, double driveki = 0, double drivekd = 1.5) {
+void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0, double drivekd = 0.003) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -532,7 +532,7 @@ void auton2(){
     intakeUse();
     slowdrivePID(inchestodegrees(37));
     slowdrivePID(inchestodegrees(9));
-    wait(300, msec);
+    wait(90, msec);
     slowdrivePID(inchestodegrees(-30));
     drivePID(inchestodegrees(-20));
     longGoal();
