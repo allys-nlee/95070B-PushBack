@@ -19,7 +19,7 @@ void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0, d
    double rotdif = 0;
    double krotdif = 0;
    double count = 0;
-
+//    printf("target: %f degrees\n", targetdegrees);
    FL.setPosition(0, degrees);
    BL.setPosition(0, degrees);
    FR.setPosition(0, degrees);
@@ -27,10 +27,10 @@ void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0, d
    ML.setPosition(0, degrees);
    MR.setPosition(0, degrees);
 
-while (fabs(error) > 30) {
+while (fabs(error) > 10) {
        double measureddegrees = (FL.position(degrees) + FR.position(degrees)) / 2;
        error = targetdegrees - measureddegrees;
-
+        // printf("FL: %f degrees, error %f\n", FL.position(deg), error);
        if(fabs(measureddegrees - prevdegrees) < 3){
            count++; //add to count
        } else { //if not being stalled
@@ -44,6 +44,7 @@ while (fabs(error) > 30) {
            MR.stop(brake);
            BR.stop(brake);
            BL.stop(brake);
+        //    printf("exit1\n");
            return;
        }
 
@@ -54,13 +55,14 @@ while (fabs(error) > 30) {
            integral += error;
        }
 
-     if(fabs(error) < 30) {
+     if(fabs(error) < 10) {
          FL.stop(brake);
          FR.stop(brake);
          ML.stop(brake);
          MR.stop(brake);
          BR.stop(brake);
          BL.stop(brake);
+        //  printf("exit2\n");
          return;
        }
 
@@ -90,6 +92,7 @@ while (fabs(error) > 30) {
         lasterror = error;
         wait(20, msec);
     }
+    // printf("whileexit\n");
 }
 
 
@@ -398,32 +401,35 @@ while (fabs(error) > 30) {
 }
 
 
-void turnPID(double turndegrees, double turnkp = 2.15, double turnki = 0, double turnkd = 0.05) {
+void turnPID(double turndegrees, double turnkp = 1.9, double turnki = 0, double turnkd = 1.47) {
     Inertial.setRotation(0, degrees);  // reset to 0
     double error = turndegrees;
     double integral = 0;
     double lasterror = error;
     double speed = 0;
-
+    printf("target: %f degrees\n", turndegrees);
     double currentdeg = Inertial.rotation(degrees);
     double prevdeg = currentdeg;
     double count = 0;
 
-    while (fabs(error) > 2) {
+    while (fabs(error) > 1) {
         currentdeg = Inertial.rotation(degrees);
         double actualTurned = currentdeg - prevdeg;
         error = turndegrees - actualTurned;
-
+        printf("deg: %f degrees, error %f %f %f %f\n", currentdeg, error, error * turnkp, integral * turnki, (error - lasterror) * turnkd);
         if (fabs(currentdeg - prevdeg) < 0.3) {
             count++;
         } else {
             count = 0;
         }
 
-        if (count > 50) break;
-
+        if (count > 50) {
+            printf("exit1\n");
+            break;
+        }
         integral += error;
         speed = error * turnkp + integral * turnki + (error - lasterror) * turnkd;
+        //printf("%f %f %f\n", error * turnkp, integral * turnki, (error - lasterror) * turnkd);
 
         FL.spin(fwd, speed, rpm);
         ML.spin(fwd, speed, rpm);
@@ -435,13 +441,16 @@ void turnPID(double turndegrees, double turnkp = 2.15, double turnki = 0, double
         lasterror = error;
         wait(20, msec);
     }
-
+    printf("whileexit\n");
     FL.stop(brake);
     ML.stop(brake);
     BL.stop(brake);
     FR.stop(brake);
     MR.stop(brake);
     BR.stop(brake);
+    wait(200, msec);
+    currentdeg = Inertial.rotation(degrees);
+    printf("lastdeg %f\n", currentdeg);
 }
 
 
@@ -494,26 +503,27 @@ void hardstop() {
 }
 
 void auton1(){
-    slowdrivePID(inchestodegrees(32));
-    wait(30, msec);
-    slowturnPID(23);
-    intakeUse();
-    slowestdrivePID(inchestodegrees(22));
-    slowturnPID(-78);
-    intakeStop();
-    slowdrivePID(inchestodegrees(-42));
-    slowturnPID(-120);
-    slowdrivePID(inchestodegrees(-25));
-    longGoal();
-    wait(2000, msec);
-    mlm.set(true);
-    intakeUse();
-    slowdrivePID(inchestodegrees(37));
-    slowdrivePID(inchestodegrees(9));
-    wait(300, msec);
-    slowdrivePID(inchestodegrees(-30));
-    drivePID(inchestodegrees(-20));
-    longGoal();
+    turnPID(90);
+    // slowdrivePID(inchestodegrees(32));
+    // wait(30, msec);
+    // slowturnPID(23);
+    // intakeUse();
+    // slowestdrivePID(inchestodegrees(22));
+    // slowturnPID(-78);
+    // intakeStop();
+    // slowdrivePID(inchestodegrees(-42));
+    // slowturnPID(-120);
+    // slowdrivePID(inchestodegrees(-25));
+    // longGoal();
+    // wait(2000, msec);
+    // mlm.set(true);
+    // intakeUse();
+    // slowdrivePID(inchestodegrees(37));
+    // slowdrivePID(inchestodegrees(9));
+    // wait(300, msec);
+    // slowdrivePID(inchestodegrees(-30));
+    // drivePID(inchestodegrees(-20));
+    // longGoal();
 }
 void auton2(){
     slowdrivePID(inchestodegrees(32));
