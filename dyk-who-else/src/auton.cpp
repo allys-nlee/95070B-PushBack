@@ -7,7 +7,7 @@ using namespace vex;
 using namespace std;
 
 // Drivetrain PID
-void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0, double drivekd = 0.03) {
+void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0 /*hesitation*/, double drivekd = 0.03 /*increase next time*/ ) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -27,7 +27,7 @@ void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0, d
    ML.setPosition(0, degrees);
    MR.setPosition(0, degrees);
 
-while (fabs(error) > 5) {
+while (fabs(error) > 0.5) {
        double measureddegrees = (FL.position(degrees) + FR.position(degrees)) / 2;
        error = targetdegrees - measureddegrees;
        if(fabs(measureddegrees - prevdegrees) < 3){
@@ -36,7 +36,7 @@ while (fabs(error) > 5) {
            count = 0;
        }
 
-       if (count > 20) { //exit when stuck for 200 ms
+       if (count > 20) { //exit when stuck for 400 ms
            FL.stop(brake);
            FR.stop(brake);
            ML.stop(brake);
@@ -49,12 +49,12 @@ while (fabs(error) > 5) {
 
        prevdegrees = measureddegrees;
 
-     //Integral windup
-       if ((fabs((error) < targetdegrees / (10*3)) && (fabs(integral) < 300))) {
-           integral += error;
-       }
+    //Integral windup
+    //    if ((fabs((error) < targetdegrees / (10*3)) && (fabs(integral) < 300))) {
+    //        integral += error;
+    //    }
 
-     if(fabs(error) < 0.5) {
+       if(fabs(error) < 0.5) {
          FL.stop(brake);
          FR.stop(brake);
          ML.stop(brake);
@@ -92,7 +92,9 @@ while (fabs(error) > 5) {
         wait(20, msec);
     }
     printf("whileexit\n");
-    printf("final: %f degrees, error %f\n", FL.position(deg), error);
+    double measureddegrees = (FL.position(degrees) + FR.position(degrees)) / 2;
+    error = targetdegrees - measureddegrees;
+    printf("final: %f degrees, error %f\n", measureddegrees, error);
     FL.stop(brake);
     FR.stop(brake);
     ML.stop(brake);
@@ -429,8 +431,8 @@ void turnPID(double turndegrees, double turnkp = 2.0, double turnki = 0, double 
             count = 0;
         }
 
-        if (count > 50) {
-            printf("exit1\n");
+        if (count > 20) { //exit after 400 msec
+            printf("stuck\n");
             break;
         }
         integral += error;
