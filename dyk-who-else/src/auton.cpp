@@ -7,7 +7,7 @@ using namespace vex;
 using namespace std;
 
 // Drivetrain PID
-void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0 /*hesitation*/, double drivekd = 0.03 /*increase next time*/ ) {
+void drivePID(double targetdegrees, double drivekp = 0.9, double driveki = 0.005 /*hesitation*/, double drivekd = 1.5 /*increase next time*/ ) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -30,7 +30,7 @@ void drivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0 /*
 while (fabs(error) > 0.5) {
        double measureddegrees = (FL.position(degrees) + FR.position(degrees)) / 2;
        error = targetdegrees - measureddegrees;
-       if(fabs(measureddegrees - prevdegrees) < 3){
+       if(fabs(measureddegrees - prevdegrees) < 2){
            count++; //add to count
        } else { //if not being stalled
            count = 0;
@@ -50,9 +50,9 @@ while (fabs(error) > 0.5) {
        prevdegrees = measureddegrees;
 
     //Integral windup
-    //    if ((fabs((error) < targetdegrees / (10*3)) && (fabs(integral) < 300))) {
-    //        integral += error;
-    //    }
+       if ((fabs((error) < targetdegrees / (10*3)) && (fabs(integral) < 300))) {
+           integral += error;
+       }
 
        if(fabs(error) < 0.5) {
          FL.stop(brake);
@@ -511,7 +511,7 @@ void hardstop() {
 }
 
 void auton1(){
-    slowdrivePID(inchestodegrees(40));
+    drivePID(inchestodegrees(30));
     // slowdrivePID(inchestodegrees(32));
     // wait(30, msec);
     // slowturnPID(23);
