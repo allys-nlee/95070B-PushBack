@@ -7,7 +7,7 @@ using namespace vex;
 using namespace std;
 
 // Drivetrain PID
-void drivePID(double targetdegrees, double drivekp = 0.9, double driveki = 0.005 /*hesitation*/, double drivekd = 1.5 /*increase next time*/ ) {
+void drivePID(double targetdegrees, double drivekp = 0.8, double driveki = 0.00005 /*hesitation*/, double drivekd = 1.5 /*increase next time*/ ) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -54,13 +54,13 @@ while (fabs(error) > 0.5) {
            integral += error;
        }
 
-       if(fabs(error) < 0.5) {
+       if(fabs(error) < 3) {
          FL.stop(brake);
          FR.stop(brake);
          ML.stop(brake);
          MR.stop(brake);
-         BR.stop(brake);
          BL.stop(brake);
+         BR.stop(brake);
          printf("exit2\n");
          return;
        }
@@ -71,13 +71,13 @@ while (fabs(error) > 0.5) {
         lspeed = pid;
         rspeed = pid;
 
-        // Heading correction
-        rotdif = Inertial.rotation(degrees) - startrotation;
-        krotdif = rotdif * 4;
+        // // Heading correction
+        // rotdif = Inertial.rotation(degrees) - startrotation;
+        // krotdif = rotdif * 4;
 
         // Apply correction
-        double lfinal = lspeed - krotdif;
-        double rfinal = rspeed + krotdif;
+        double lfinal = lspeed; //- krotdif;
+        double rfinal = rspeed; //+ krotdif;
 
         // Set motor directions based on target sign
         directionType dir = (targetdegrees >= 0) ? vex::forward : vex::reverse;
