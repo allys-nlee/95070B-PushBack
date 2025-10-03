@@ -19,7 +19,7 @@ void drivePID(double targetdegrees, double drivekp = 0.36 /*0.7*/, double drivek
    double rotdif = 0;
    double krotdif = 0;
    double count = 0;
-   printf("target: %f degrees\n", targetdegrees);
+//    printf("target: %f degrees\n", targetdegrees);
    FL.setPosition(0, degrees);
    BL.setPosition(0, degrees);
    FR.setPosition(0, degrees);
@@ -43,7 +43,7 @@ while (fabs(error) > 3) {
            MR.stop(brake);
            BR.stop(brake);
            BL.stop(brake);
-           printf("exit1\n");
+        //    printf("exit1\n");
            return;
        }
 
@@ -61,13 +61,13 @@ while (fabs(error) > 3) {
          MR.stop(brake);
          BL.stop(brake);
          BR.stop(brake);
-         printf("exit2\n");
+        //  printf("exit2\n");
          return;
        }
 
         // PID calculation
         double pid = error * drivekp + integral * driveki + (error - lasterror) * drivekd;
-        printf("FL: %f degrees, error %f %f %f %f\n", FL.position(deg), error, error * drivekp, integral * driveki, (error - lasterror) * drivekd);
+        // printf("FL: %f degrees, error %f %f %f %f\n", FL.position(deg), error, error * drivekp, integral * driveki, (error - lasterror) * drivekd);
         lspeed = pid;
         rspeed = pid;
 
@@ -91,10 +91,10 @@ while (fabs(error) > 3) {
         lasterror = error;
         wait(20, msec);
     }
-    printf("whileexit\n");
+    // printf("whileexit\n");
     double measureddegrees = (FL.position(degrees) + FR.position(degrees)) / 2;
     error = targetdegrees - measureddegrees;
-    printf("final: %f degrees, error %f\n", measureddegrees, error);
+    // printf("final: %f degrees, error %f\n", measureddegrees, error);
     FL.stop(brake);
     FR.stop(brake);
     ML.stop(brake);
@@ -334,7 +334,7 @@ while (fabs(error) > 30) {
 }
 
 
-void turnPID(double turndegrees, double turnkp = 2.1, double turnki = 0.0001, double turnkd = 1.2) {
+void turnPID(double turndegrees, double turnkp = 2.3, double turnki = 0.0015, double turnkd = 1.0) {
     Inertial.setRotation(0, degrees);  // reset to 0
     double error = turndegrees;
     double integral = 0;
@@ -345,7 +345,7 @@ void turnPID(double turndegrees, double turnkp = 2.1, double turnki = 0.0001, do
     double prevdeg = currentdeg;
     double count = 0;
 
-    while (fabs(error) > 1) {
+    while (fabs(error) > 2) {
         currentdeg = Inertial.rotation(degrees);
         double actualTurned = currentdeg - prevdeg;
         error = turndegrees - actualTurned;
@@ -436,48 +436,45 @@ void hardstop() {
 }
 
 void auton1(){
-    // drivePID(inchestodegrees(20));
-    drivePID(inchestodegrees(32));
+    drivePID(inchestodegrees(25));
     wait(30, msec);
-    turnPID(23);
+    turnPID(13);
     intakeUse();
-    slowdrivePID(inchestodegrees(22));
+    slowdrivePID(inchestodegrees(34));
     turnPID(-78);
     intakeStop();
-    slowdrivePID(inchestodegrees(-40));
+    slowdrivePID(inchestodegrees(-41));
     turnPID(-122);
-    drivePID(inchestodegrees(-25));
+    drivePID(inchestodegrees(-23));
     longGoal();
     wait(2000, msec);
     mlm.set(true);
     intakeUse();
     slowdrivePID(inchestodegrees(33));
-    drivePID(inchestodegrees(9));
+    drivePID(inchestodegrees(10));
     wait(300, msec);
     slowdrivePID(inchestodegrees(-35));
     drivePID(inchestodegrees(-15));
     longGoal();
 }
 void auton2(){
-    slowdrivePID(inchestodegrees(32));
-    wait(30, msec);
-    slowturnPID(-23);
+    drivePID(inchestodegrees(17));
+    turnPID(-30);
     intakeUse();
-    slowdrivePID(inchestodegrees(22));
-    slowturnPID(78);
+    drivePID(inchestodegrees(18));
+    turnPID(83);
     intakeStop();
-    slowdrivePID(inchestodegrees(-42));
-    slowturnPID(120);
-    slowdrivePID(inchestodegrees(-25));
+    drivePID(inchestodegrees(-44));
+    turnPID(123);
+    drivePID(inchestodegrees(-35));
     longGoal();
     wait(2000, msec);
     mlm.set(true);
     intakeUse();
-    slowdrivePID(inchestodegrees(37));
-    drivePID(inchestodegrees(9));
-    wait(90, msec);
-    slowdrivePID(inchestodegrees(-30));
-    slowdrivePID(inchestodegrees(-20));
+    slowdrivePID(inchestodegrees(45));
+    wait(300, msec);
+    slowdrivePID(inchestodegrees(-40));
+    drivePID(inchestodegrees(-15));
     longGoal();
 }
 void auton3(){
