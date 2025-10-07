@@ -334,7 +334,7 @@ while (fabs(error) > 30) {
 }
 
 
-void turnPID(double turndegrees, double turnkp = 2.3, double turnki = 0.0003, double turnkd = 1.0) {
+void turnPID(double turndegrees, double turnkp = 2.2, double turnki = 0.0002, double turnkd = 1.5) {
     Inertial.setRotation(0, degrees);  // reset to 0
     double error = turndegrees;
     double integral = 0;
@@ -405,13 +405,13 @@ void intakeUse() {
 void outtakeUse() {
      intake.spin(vex::reverse, 12000, voltageUnits::mV);
      storage.spin(vex::forward, 7000, voltageUnits::mV);
-     outake.spin(vex::reverse, 4000, voltageUnits::mV);
+     outake.spin(vex::reverse, 12000, voltageUnits::mV);
 }
 
 void longGoal() {
      intake.spin(vex::forward, 12000, voltageUnits::mV);
-     storage.spin(vex::forward, 12000, voltageUnits::mV);
-     outake.spin(vex::forward, 12000, voltageUnits::mV);
+     storage.spin(vex::forward, 7000, voltageUnits::mV);
+     outake.spin(vex::forward, 10000, voltageUnits::mV);
 }
 
 void intakeStop() {
@@ -436,20 +436,34 @@ void hardstop() {
 }
 
 void tsfpmo() {
-    FL.spin(vex::forward, 3000, voltageUnits::mV);
-    ML.spin(vex::forward, 3000, voltageUnits::mV);
-    BL.spin(vex::forward, 3000, voltageUnits::mV);
-    FR.spin(vex::forward, 3000, voltageUnits::mV);
-    MR.spin(vex::forward, 3000, voltageUnits::mV);
-    BR.spin(vex::forward, 3000, voltageUnits::mV);
-    wait(80, msec);
-    FL.spin(vex::reverse, -3000, voltageUnits::mV);
-    ML.spin(vex::reverse, -3000, voltageUnits::mV);
-    BL.spin(vex::reverse, -3000, voltageUnits::mV);
-    FR.spin(vex::reverse, -3000, voltageUnits::mV);
-    MR.spin(vex::reverse, -3000, voltageUnits::mV);
-    BR.spin(vex::reverse, -3000, voltageUnits::mV);  
-    wait(80, msec);
+    FL.spin(vex::forward, 4000, voltageUnits::mV);
+    ML.spin(vex::forward, 4000, voltageUnits::mV);
+    BL.spin(vex::forward, 4000, voltageUnits::mV);
+    FR.spin(vex::forward, 4000, voltageUnits::mV);
+    MR.spin(vex::forward, 4000, voltageUnits::mV);
+    BR.spin(vex::forward, 4000, voltageUnits::mV);
+    wait(100, msec);
+    FL.spin(vex::reverse, -4000, voltageUnits::mV);
+    ML.spin(vex::reverse, -4000, voltageUnits::mV);
+    BL.spin(vex::reverse, -4000, voltageUnits::mV);
+    FR.spin(vex::reverse, -4000, voltageUnits::mV);
+    MR.spin(vex::reverse, -4000, voltageUnits::mV);
+    BR.spin(vex::reverse, -4000, voltageUnits::mV);  
+    wait(100, msec);
+    FL.spin(vex::forward, 4000, voltageUnits::mV);
+    ML.spin(vex::forward, 4000, voltageUnits::mV);
+    BL.spin(vex::forward, 4000, voltageUnits::mV);
+    FR.spin(vex::forward, 4000, voltageUnits::mV);
+    MR.spin(vex::forward, 4000, voltageUnits::mV);
+    BR.spin(vex::forward, 4000, voltageUnits::mV);
+    wait(100, msec);
+    FL.spin(vex::reverse, -4000, voltageUnits::mV);
+    ML.spin(vex::reverse, -4000, voltageUnits::mV);
+    BL.spin(vex::reverse, -4000, voltageUnits::mV);
+    FR.spin(vex::reverse, -4000, voltageUnits::mV);
+    MR.spin(vex::reverse, -4000, voltageUnits::mV);
+    BR.spin(vex::reverse, -4000, voltageUnits::mV);  
+    wait(100, msec);
     hardstop();
 }
 
@@ -474,33 +488,27 @@ void auton1(){
     intakeStop();
     turnPID(-90);
     drivePID(inchestodegrees(-40));
-    turnPID(-116);
+    turnPID(-120); //125 acc
     mlm.set(true);
     intakeUse();
-    drivePID(inchestodegrees(25));
+    drivePID(inchestodegrees(29));
     tsfpmo();
-    intakeUse();
-    drivePID(inchestodegrees(-44));
+    drivePID(inchestodegrees(-46));
     longGoal();
 }
 void auton2(){
-    drivePID(inchestodegrees(17));
-    turnPID(-30);
     intakeUse();
-    drivePID(inchestodegrees(18));
-    turnPID(83);
+    slowdrivePID(inchestodegrees(34));
     intakeStop();
-    drivePID(inchestodegrees(-44));
-    turnPID(123);
-    drivePID(inchestodegrees(-35));
-    longGoal();
-    wait(2000, msec);
+    turnPID(90);
+    drivePID(inchestodegrees(-40));
+    turnPID(116);
     mlm.set(true);
     intakeUse();
-    slowdrivePID(inchestodegrees(45));
-    wait(300, msec);
-    slowdrivePID(inchestodegrees(-40));
-    drivePID(inchestodegrees(-15));
+    drivePID(inchestodegrees(27));
+    tsfpmo();
+    intakeUse();
+    drivePID(inchestodegrees(-44));
     longGoal();
 }
 void auton3(){
