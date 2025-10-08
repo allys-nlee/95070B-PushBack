@@ -46,9 +46,9 @@ void describe(int n) {
  } else if (n == 3) {
    Controller1.Screen.print("Left4Middle");
  } else if (n == 4) {
-   Controller1.Screen.print("skills");
+   Controller1.Screen.print("Right4Middle");
  } else if (n == 5) {
-   Controller1.Screen.print("awp?");
+   Controller1.Screen.print("skills");
  }
 }
 
