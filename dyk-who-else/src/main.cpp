@@ -48,12 +48,16 @@ void describe(int n) {
  } else if (n == 4) {
    Controller1.Screen.print("Right4Middle");
  } else if (n == 5) {
-   Controller1.Screen.print("skills");
+   Controller1.Screen.print("Right4Long");
+ } else if (n == 6) {
+   Controller1.Screen.print("Left4Long");
+ } else if (n == 7) {
+   Controller1.Screen.print("SoloAWP");
  }
 }
 
 
-int autons = 5;
+int autons = 7;
 int displayauton = 0;
 
 
@@ -176,6 +180,12 @@ void autonomous(void) {
  }
  if (displayauton == 5) {
    auton5();
+ }
+ if (displayauton == 6) {
+   auton6();
+ }
+ if (displayauton == 7) {
+   auton7();
  }
  inauton = false;
 }
