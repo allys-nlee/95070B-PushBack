@@ -475,13 +475,13 @@ void auton1(){
     slowdrivePID(inchestodegrees(34));
     intakeStop();
     turnPID(-90);
-    drivePID(inchestodegrees(-40));
-    turnPID(-125);
+    drivePID(inchestodegrees(-33));
+    turnPID(-117);
     mlm.set(true);
     intakeUse();
-    drivePID(inchestodegrees(29));
+    drivePID(inchestodegrees(33));
     tsfpmo();
-    slowdrivePID(inchestodegrees(-46));
+    slowdrivePID(inchestodegrees(-49));
     longGoal();
 }
 void auton2(){
