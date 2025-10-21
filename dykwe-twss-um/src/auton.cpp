@@ -387,9 +387,6 @@ void turnPID(double turndegrees, double turnkp = 2.1, double turnki = 0.0003, do
 }
 
 
-
-
-
 //inchestodegrees code for drivePID
 double inchestodegrees(double inches){
    return (inches / (3.25 * M_PI)) * 360.0;
@@ -403,9 +400,9 @@ void intakeUse() {
 }
 
 void outtakeUse() {
-     intake.spin(vex::reverse, 5000, voltageUnits::mV);
+     intake.spin(vex::reverse, 7000, voltageUnits::mV);
      storage.spin(vex::forward, 4000, voltageUnits::mV);
-     outake.spin(vex::reverse, 5000, voltageUnits::mV);
+     outake.spin(vex::reverse, 4000, voltageUnits::mV);
 }
 
 void longGoal() {
@@ -470,27 +467,39 @@ void tsfpmo() {
     // hardstop();
 }
 
+void skillsurmomhahahhaha() {
+    FL.spin(vex::reverse, 8000, voltageUnits::mV);
+    ML.spin(vex::reverse, 8000, voltageUnits::mV);
+    BL.spin(vex::reverse, 8000, voltageUnits::mV);
+    FR.spin(vex::reverse, 8000, voltageUnits::mV);
+    MR.spin(vex::reverse, 8000, voltageUnits::mV);
+    BR.spin(vex::reverse, 8000, voltageUnits::mV);
+    wait(670, msec);
+    hardstop();
+}
+
 void auton1(){
     intakeUse();
     slowdrivePID(inchestodegrees(34));
     intakeStop();
-    turnPID(-90);
-    drivePID(inchestodegrees(-33));
-    turnPID(-117);
+    turnPID(-80);
+    drivePID(inchestodegrees(-40));
+    turnPID(-113);
     mlm.set(true);
     intakeUse();
-    drivePID(inchestodegrees(33));
-    tsfpmo();
-    slowdrivePID(inchestodegrees(-49));
+    drivePID(inchestodegrees(30));
+    wait(90, msec);
+    //tsfpmo();
+    slowdrivePID(inchestodegrees(-46));
     longGoal();
 }
 void auton2(){
     intakeUse();
     slowdrivePID(inchestodegrees(34));
     intakeStop();
-    turnPID(91);
+    turnPID(80);
     drivePID(inchestodegrees(-40));
-    turnPID(123);
+    turnPID(113);
     mlm.set(true);
     intakeUse();
     drivePID(inchestodegrees(30));
@@ -501,7 +510,7 @@ void auton2(){
 }
 void auton3(){
     intakeUse();
-    slowdrivePID(inchestodegrees(40));
+    slowdrivePID(inchestodegrees(42));
     intakeStop();
     turnPID(-110);
     drivePID(inchestodegrees(-17));
@@ -509,10 +518,10 @@ void auton3(){
 }
 void auton4(){
     intakeUse();
-    slowdrivePID(inchestodegrees(34));
+    slowdrivePID(inchestodegrees(37));
     intakeStop();
-    turnPID(-91);
-    drivePID(inchestodegrees(21));
+    turnPID(-70);
+    drivePID(inchestodegrees(22));
     outtakeUse();
 }
 void auton5(){
@@ -593,15 +602,17 @@ void auton6(){
     drivePID(inchestodegrees(-20));
 }
 void auton7(){
-    intakeUse();
-    slowdrivePID(inchestodegrees(40));
-    intakeStop();
-    turnPID(-110);
-    drivePID(inchestodegrees(-17));
-    centertopUse();
-    wait(300, msec);
-    drivePID(inchestodegrees(17));
-    turnPID(110);
-    intakeUse();
-    drivePID(30);
+    //mlm.set(true);
+    skillsurmomhahahhaha();
+    // intakeUse();
+    // slowdrivePID(inchestodegrees(40));
+    // intakeStop();
+    // turnPID(-110);
+    // drivePID(inchestodegrees(-17));
+    // centertopUse();
+    // wait(300, msec);
+    // drivePID(inchestodegrees(17));
+    // turnPID(110);
+    // intakeUse();
+    // drivePID(30);
 }

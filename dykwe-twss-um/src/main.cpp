@@ -52,7 +52,7 @@ void describe(int n) {
  } else if (n == 6) {
    Controller1.Screen.print("Left4Long");
  } else if (n == 7) {
-   Controller1.Screen.print("SoloAWP");
+   Controller1.Screen.print("Skills");
  }
 }
 
