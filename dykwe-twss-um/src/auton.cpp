@@ -439,16 +439,16 @@ void tsfpmo() {
     FR.spin(vex::forward, 4000, voltageUnits::mV);
     MR.spin(vex::forward, 4000, voltageUnits::mV);
     BR.spin(vex::forward, 4000, voltageUnits::mV);
-    wait(200, msec);
+    wait(500, msec);
     hardstop();
-    FL.spin(vex::reverse, 4000, voltageUnits::mV);
-    ML.spin(vex::reverse, 4000, voltageUnits::mV);
-    BL.spin(vex::reverse, 4000, voltageUnits::mV);
-    FR.spin(vex::reverse, 4000, voltageUnits::mV);
-    MR.spin(vex::reverse, 4000, voltageUnits::mV);
-    BR.spin(vex::reverse, 4000, voltageUnits::mV);  
-    wait(200, msec);
-    hardstop();
+    // FL.spin(vex::reverse, 4000, voltageUnits::mV);
+    // ML.spin(vex::reverse, 4000, voltageUnits::mV);
+    // BL.spin(vex::reverse, 4000, voltageUnits::mV);
+    // FR.spin(vex::reverse, 4000, voltageUnits::mV);
+    // MR.spin(vex::reverse, 4000, voltageUnits::mV);
+    // BR.spin(vex::reverse, 4000, voltageUnits::mV);  
+    // wait(200, msec);
+    // hardstop();
     // FL.spin(vex::forward, 4000, voltageUnits::mV);
     // ML.spin(vex::forward, 4000, voltageUnits::mV);
     // BL.spin(vex::forward, 4000, voltageUnits::mV);
@@ -478,19 +478,29 @@ void skillsurmomhahahhaha() {
     hardstop();
 }
 
+void sheldonattackingcode() {
+    FL.spin(vex::reverse, 9000, voltageUnits::mV);
+    ML.spin(vex::reverse, 9000, voltageUnits::mV);
+    BL.spin(vex::reverse, 9000, voltageUnits::mV);
+    FR.spin(vex::reverse, 9000, voltageUnits::mV);
+    MR.spin(vex::reverse, 9000, voltageUnits::mV);
+    BR.spin(vex::reverse, 9000, voltageUnits::mV);  
+    wait(1200, msec);
+    hardstop();  
+}
+
 void auton1(){
     intakeUse();
     slowdrivePID(inchestodegrees(34));
     intakeStop();
     turnPID(-80);
-    drivePID(inchestodegrees(-40));
+    drivePID(inchestodegrees(-37));
     turnPID(-113);
     mlm.set(true);
     intakeUse();
-    drivePID(inchestodegrees(30));
-    wait(90, msec);
-    //tsfpmo();
-    slowdrivePID(inchestodegrees(-46));
+    drivePID(inchestodegrees(25));
+    tsfpmo();
+    sheldonattackingcode();
     longGoal();
 }
 void auton2(){
@@ -498,14 +508,13 @@ void auton2(){
     slowdrivePID(inchestodegrees(34));
     intakeStop();
     turnPID(80);
-    drivePID(inchestodegrees(-40));
+    drivePID(inchestodegrees(-37));
     turnPID(113);
     mlm.set(true);
     intakeUse();
-    drivePID(inchestodegrees(30));
-    wait(90, msec);
-    //tsfpmo();
-    slowdrivePID(inchestodegrees(-46));
+    drivePID(inchestodegrees(25));
+    tsfpmo();
+    sheldonattackingcode();
     longGoal();
 }
 void auton3(){
