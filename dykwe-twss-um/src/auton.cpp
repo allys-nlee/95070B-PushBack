@@ -433,12 +433,12 @@ void hardstop() {
 }
 
 void tsfpmo() {
-    FL.spin(vex::forward, 8000, voltageUnits::mV);
-    ML.spin(vex::forward, 8000, voltageUnits::mV);
-    BL.spin(vex::forward, 8000, voltageUnits::mV);
-    FR.spin(vex::forward, 8000, voltageUnits::mV);
-    MR.spin(vex::forward, 8000, voltageUnits::mV);
-    BR.spin(vex::forward, 8000, voltageUnits::mV);
+    FL.spin(vex::forward, 9000, voltageUnits::mV);
+    ML.spin(vex::forward, 9000, voltageUnits::mV);
+    BL.spin(vex::forward, 9000, voltageUnits::mV);
+    FR.spin(vex::forward, 9000, voltageUnits::mV);
+    MR.spin(vex::forward, 9000, voltageUnits::mV);
+    BR.spin(vex::forward, 9000, voltageUnits::mV);
     wait(550, msec);
     hardstop();
 }
@@ -484,7 +484,7 @@ void auton2(){
     slowdrivePID(inchestodegrees(34));
     intakeStop();
     turnPID(80);
-    drivePID(inchestodegrees(-37));
+    drivePID(inchestodegrees(-39));
     turnPID(119);
     mlm.set(true);
     intakeUse();
